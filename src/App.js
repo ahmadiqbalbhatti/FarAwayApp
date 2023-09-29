@@ -15,6 +15,11 @@ function App() {
         setItems(items => items.filter(item => item.id !== id));
     }
 
+    function handleClearListItems() {
+        const confirmed = window.confirm('Are you sure? You want to delete All items!');
+        if (confirmed) setItems([]);
+    }
+
 
     // First way
     function handlePackedItem(id) {
@@ -26,24 +31,27 @@ function App() {
         })
     }
 
-/*    // Other way
-    function handlePackedItem(id) {
-        setItems(items => {
-            return items.map(item => {
-                if (item.id === id) {
-                    return { ...item, packed: !item.packed };
-                }
-                return item;
+    /*    // Other way
+        function handlePackedItem(id) {
+            setItems(items => {
+                return items.map(item => {
+                    if (item.id === id) {
+                        return { ...item, packed: !item.packed };
+                    }
+                    return item;
+                });
             });
-        });
-    }*/
+        }*/
 
 
     return (
         <main className={"app"}>
             <Logo/>
             <Form onAddItems={handleAddItems}/>
-            <PackingList items={items} onDeleteItem={handleDeleteItem} onPackedItem={handlePackedItem}/>
+            <PackingList items={items}
+                         onDeleteItem={handleDeleteItem}
+                         onPackedItem={handlePackedItem}
+                         onClearListItems={handleClearListItems}/>
             <Stats items={items}/>
         </main>
     );
